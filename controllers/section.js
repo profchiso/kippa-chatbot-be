@@ -17,7 +17,7 @@ exports.getAllSection = async (req, res) => {
 
 exports.createSection = async (req, res) => {
   try {
-    const { lessonId } = req.params;
+    const { title, description, lessonId } = req.body;
     const relatedLesson = await Lesson.findById(lessonId);
     if (!relatedLesson) {
       return res.status(STATUS_CODES.NOT_FOUND).json({
@@ -26,7 +26,7 @@ exports.createSection = async (req, res) => {
         errors: [{ msg: "Lesson not found" }],
       });
     }
-    const { title, description } = req.body;
+
     const createdSection = await Section.create({ title, description });
     relatedLesson.sections.push(createdSection.id);
     await relatedLesson.save();

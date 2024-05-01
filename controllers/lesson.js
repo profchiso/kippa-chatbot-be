@@ -32,7 +32,7 @@ exports.getALesson = async (req, res) => {
 
 exports.createLesson = async (req, res) => {
   try {
-    const { courseId } = req.params;
+    const { title, description, courseId } = req.body;
     const relatedCourse = await Course.findById(courseId);
     if (!relatedCourse) {
       return res.status(STATUS_CODES.NOT_FOUND).json({
@@ -41,7 +41,7 @@ exports.createLesson = async (req, res) => {
         errors: [{ msg: "Course not found" }],
       });
     }
-    const { title, description } = req.body;
+
     const createdLesson = await Lesson.create({ title, description });
     relatedCourse.lessons.push(createdLesson.id);
     await relatedCourse.save();
