@@ -4,7 +4,7 @@ const { Lesson } = require("../models/lesson");
 
 exports.getAllSection = async (req, res) => {
   try {
-    getAll(req, res, Course, CourseExcludedFields);
+    getAll(req, res, Section);
   } catch (error) {
     console.log(error);
     return res.status(STATUS_CODES.BAD_REQUEST).json({

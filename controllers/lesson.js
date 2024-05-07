@@ -3,7 +3,7 @@ const { Lesson } = require("../models/lesson");
 const { Course } = require("../models/course");
 exports.getAllLesson = async (req, res) => {
   try {
-    getAll(req, res, Course, CourseExcludedFields);
+    getAll(req, res, Lesson);
   } catch (error) {
     console.log(error);
     return res.status(STATUS_CODES.BAD_REQUEST).json({
@@ -16,10 +16,10 @@ exports.getAllLesson = async (req, res) => {
 
 exports.getALesson = async (req, res) => {
   try {
-    const course = await Course.findById(req.params.courseId).populate(
+    const course = await Lesson.findById(req.params.courseId).populate(
       "lessons"
     );
-    getOne(req, res, Course, CourseExcludedFields);
+    getOne(req, res, Lesson);
   } catch (error) {
     console.log(error);
     return res.status(STATUS_CODES.BAD_REQUEST).json({
